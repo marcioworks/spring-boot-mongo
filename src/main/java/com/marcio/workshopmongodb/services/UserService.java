@@ -1,5 +1,6 @@
 package com.marcio.workshopmongodb.services;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,6 +36,19 @@ public class UserService {
 		repo.deleteById(id);
 	}
 	
+	public User update(User obj) {
+		User newUser = findById(obj.getId());
+		UpdateData(newUser,obj);
+		return repo.save(newUser);
+	}
+	
+	
+
+	private void UpdateData(User newUser, User obj) {
+		newUser.setName(obj.getName());
+		newUser.setEmail(obj.getEmail());
+	}
+
 	public User fromDto(UserDto obj) {
 		return new User(obj.getId(), obj.getName(), obj.getEmail());
 	}
